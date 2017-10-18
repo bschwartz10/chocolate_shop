@@ -1,19 +1,15 @@
-require 'csv'
-require './lib/order'
-
 class OrdersWriter
-  attr_reader :milk, :dark, :white, :sugar_free
+  attr_reader :all
 
-  def initialize(order)
-    @milk = order['milk']
-    @dark = order['dark']
-    @white = order['white']
-    @sugar_free = order['sugar_free']
+  def initialize(orders)
+    @all = orders.map {|order| OutgoingOrder.new(order)}
   end
 
   def write_order
     CSV.open('output/redemptions.csv', 'wb') do |csv|
-      csv << ["milk #{milk}", "dark #{dark}", "white #{white}", "sugar free #{sugar_free}"]
+      all.each do |order|
+        csv << ["milk #{order.milk}", "dark #{order.dark}", "white #{order.white}", "sugar free #{order.sugar_free}"]
+      end
     end
   end
 end
