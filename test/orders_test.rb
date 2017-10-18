@@ -1,7 +1,4 @@
-require './lib/orders_reader'
-require './lib/orders'
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 
 class OrdersTest < Minitest::Test
 
@@ -16,7 +13,7 @@ class OrdersTest < Minitest::Test
     orders = OrdersReader.read_orders(orders_csv)
 
     assert_instance_of Array, orders.all
-    assert_instance_of Order, orders.all.first
+    assert_instance_of IncomingOrder, orders.all.first
     assert_equal 4, orders.all.count
   end
 
