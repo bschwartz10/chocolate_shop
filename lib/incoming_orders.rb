@@ -1,4 +1,4 @@
-class Orders
+class IncomingOrders
   attr_reader :all
 
   def initialize(orders)
