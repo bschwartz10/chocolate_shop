@@ -1,0 +1,8 @@
+require 'csv'
+require './lib/orders_reader'
+require './lib/orders'
+require './lib/orders_writer'
+require './lib/outgoing_order'
+require './lib/incoming_order'
+require 'minitest/autorun'
+require 'minitest/pride'
