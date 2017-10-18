@@ -1,22 +1,22 @@
-class Order
+class IncomingOrder
   attr_reader :cash, :price, :wrappers_needed, :type, :output, :available_wrappers
 
   def initialize(order)
-    @cash = order[:cash]
-    @price = order[:price]
-    @wrappers_needed = order[:wrappers_needed]
+    @cash = order[:cash].to_i
+    @price = order[:price].to_i
+    @wrappers_needed = order[:wrappers_needed].to_i
     @type = order[:type]
     @output = {
       'milk' => 0,
       'dark' => 0,
       'white' => 0,
-      'sugar_free' => 0
+      'sugar free' => 0
     }
     @available_wrappers = {
       'milk' => 0,
       'dark' => 0,
       'white' => 0,
-      'sugar_free' => 0
+      'sugar free' => 0
     }
   end
 
@@ -44,19 +44,19 @@ class Order
   def add_chocolates(flavor)
     if flavor == 'white'
       output['white'] += 1
-      output['sugar_free'] += 1
+      output['sugar free'] += 1
       available_wrappers['white'] += 1
-      available_wrappers['sugar_free'] += 1
-    elsif flavor == 'sugar_free'
-      output['sugar_free'] += 1
+      available_wrappers['sugar free'] += 1
+    elsif flavor == 'sugar free'
+      output['sugar free'] += 1
       output['dark'] += 1
-      available_wrappers['sugar_free'] += 1
+      available_wrappers['sugar free'] += 1
       available_wrappers['dark'] += 1
     elsif flavor == 'milk'
       output['milk'] += 1
-      output['sugar_free'] += 1
+      output['sugar free'] += 1
       available_wrappers['milk'] += 1
-      available_wrappers['sugar_free'] += 1
+      available_wrappers['sugar free'] += 1
     elsif flavor == 'dark'
       output['dark'] += 1
       available_wrappers['dark'] += 1
