@@ -1,6 +1,4 @@
-require './lib/orders_reader'
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 
 class OrdersReaderTest < Minitest::Test
 
