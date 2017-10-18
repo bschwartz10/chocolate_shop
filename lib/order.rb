@@ -24,17 +24,6 @@ class Order
     output[type] += cash / price
   end
 
-  # def choose_promotion(type)
-  #   complimentary_chocolate_promotions[type]
-  # end
-  #
-  # def complimentary_chocolate_promotions
-  #   {
-  #     'milk' => milk_chocolate_promotion(wrappers_needed, initial_chocolates_bought),
-  #     'white' => white_chocolate_promotion(wrappers_needed, initial_chocolates_bought)
-  #   }
-  # end
-
   def chocolate_promotion(wrappers_needed, initial_chocolates_bought, type)
     available_wrappers[type] += initial_chocolates_bought
     remaining_wrappers = true
@@ -63,17 +52,15 @@ class Order
       output['dark'] += 1
       available_wrappers['sugar_free'] += 1
       available_wrappers['dark'] += 1
+    elsif flavor == 'milk'
+      output['milk'] += 1
+      output['sugar_free'] += 1
+      available_wrappers['milk'] += 1
+      available_wrappers['sugar_free'] += 1
+    elsif flavor == 'dark'
+      output['dark'] += 1
+      available_wrappers['dark'] += 1
     end
   end
-  
-  # def white_chocolate_promotion(wrappers_needed, available_wrappers)
-  #   require "pry"; binding.pry
-  #   until available_wrappers < wrappers_needed
-  #     output['white'] += 1
-  #     output['sugar_free'] += 1
-  #     available_wrappers -= wrappers_needed
-  #   end
-  #   output
-  # end
 
 end
