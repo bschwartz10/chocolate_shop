@@ -9,7 +9,7 @@ class OrdersReaderTest < Minitest::Test
   def test_read_orders_method_reads_orders_csv_file
     orders_csv = './input/orders.csv'
 
-    assert_instance_of Orders, OrdersReader.read_orders(orders_csv)
+    assert_instance_of IncomingOrders, OrdersReader.read_orders(orders_csv)
   end
 
 end
