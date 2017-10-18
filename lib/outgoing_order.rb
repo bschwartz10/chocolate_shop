@@ -7,5 +7,5 @@ class OutgoingOrder
     @white = order['white']
     @sugar_free = order['sugar free']
   end
-  
+
 end
