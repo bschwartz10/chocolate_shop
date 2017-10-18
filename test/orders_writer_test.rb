@@ -10,7 +10,7 @@ class OrdersWriterTest < Minitest::Test
               {'milk'=>0, 'dark'=>3, 'white'=>0, 'sugar free'=>0},
               {'milk'=>0, 'dark'=>3, 'white'=>0, 'sugar free'=>5},
               {'milk'=>0, 'dark'=>1, 'white'=>5, 'sugar free'=>3}]
-    OrdersWriter.new(orders).write_order
+    OrdersWriter.write_order(orders)
     actual_csv = IO.readlines('./output/redemptions.csv')
     first_line = actual_csv[0].strip
     second_line = actual_csv[1].strip
