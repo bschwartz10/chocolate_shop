@@ -6,10 +6,10 @@ class OrdersWriterTest < Minitest::Test
   end
 
   def test_write_orders_method_writes_a_new_csv_file_with_correct_output
-    orders = [{'milk'=>7, 'dark'=>0, 'white'=>0, 'sugar free'=>1},
-              {'milk'=>0, 'dark'=>3, 'white'=>0, 'sugar free'=>0},
-              {'milk'=>0, 'dark'=>3, 'white'=>0, 'sugar free'=>5},
-              {'milk'=>0, 'dark'=>1, 'white'=>5, 'sugar free'=>3}]
+    orders = [{milk: 7, dark: 0, white: 0, sugar_free: 1},
+              {milk: 0, dark: 3, white: 0, sugar_free: 0},
+              {milk: 0, dark: 3, white: 0, sugar_free: 5},
+              {milk: 0, dark: 1, white: 5, sugar_free: 3}]
     OrdersWriter.write_order(orders)
     actual_csv = IO.readlines('./output/redemptions.csv')
     first_line = actual_csv[0].strip

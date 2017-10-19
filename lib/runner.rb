@@ -8,8 +8,9 @@ require './lib/outgoing_orders'
 
 orders_csv = './input/orders.csv'
 orders = OrdersReader.read_orders(orders_csv)
-outputs = orders.all.map do |order|
-  order.initial_chocolates_bought(order.type)
+redemptions = orders.all.map do |order|
+  bought_chocolates = order.initial_chocolates_bought(order.type)
+  order.initial_wrappers_obtained(order.type, bought_chocolates)
   order.chocolate_promotion(order.wrappers_needed)
 end
-OrdersWriter.write_order(outputs)
+OrdersWriter.write_order(redemptions)

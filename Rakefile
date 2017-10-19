@@ -1,5 +1,5 @@
 task :all do
-  puts 'running tests and creating output file'
+  puts 'running tests and creating redemptions file'
   ruby 'test/incoming_order_test.rb'
   ruby 'test/orders_reader_test.rb'
   ruby 'test/incoming_orders_test.rb'

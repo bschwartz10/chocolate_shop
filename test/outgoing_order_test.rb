@@ -2,8 +2,9 @@ require './test/test_helper'
 
 class OutgoingOrderTest < Minitest::Test
   attr_reader :outgoing_order
+
   def setup
-    @outgoing_order = OutgoingOrder.new({'milk'=>7, 'dark'=>0, 'white'=>0, 'sugar free'=>1})
+    @outgoing_order = OutgoingOrder.new({milk: 7, dark: 0, white: 0, sugar_free: 1})
   end
 
   def test_outgoing_order_writer_exists
