@@ -1,38 +1,38 @@
 require './test/test_helper'
 
-class IncomingOrderTest < Minitest::Test
+class OrderTest < Minitest::Test
   attr_reader :mc_order, :mc_two_order, :mc_three_order, :wc_order, :dc_order, :sf_order
 
   def setup
-    @mc_order = IncomingOrder.new({
+    @mc_order = Order.new({
       cash: '14',
       price: '2',
       wrappers_needed: '6',
       type: 'milk'
     })
 
-    @mc_two_order = IncomingOrder.new({
+    @mc_two_order = Order.new({
       cash: '12',
       price: '2',
       wrappers_needed: '5',
       type: 'milk'
     })
 
-    @wc_order = IncomingOrder.new({
+    @wc_order = Order.new({
       cash: '6',
       price: '2',
       wrappers_needed: '2',
       type: 'white'
     })
 
-    @sf_order = IncomingOrder.new({
+    @sf_order = Order.new({
       cash: '6',
       price: '2',
       wrappers_needed: '2',
       type: 'sugar free'
     })
 
-    @dc_order = IncomingOrder.new({
+    @dc_order = Order.new({
       cash: '12',
       price: '4',
       wrappers_needed: '4',
@@ -44,7 +44,7 @@ class IncomingOrderTest < Minitest::Test
     orders_csv = './input/orders.csv'
     orders = OrdersReader.read_orders(orders_csv)
 
-    assert_instance_of IncomingOrder, orders.all.first
+    assert_instance_of Order, orders.first
   end
 
   def test_order_has_cash

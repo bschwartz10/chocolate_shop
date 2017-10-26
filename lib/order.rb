@@ -1,4 +1,4 @@
-class IncomingOrder
+class Order
   attr_reader :cash, :price, :wrappers_needed, :type, :redemptions, :available_wrappers
 
   def initialize(order)
@@ -38,6 +38,7 @@ class IncomingOrder
     redemptions
   end
 
+
   def run_promotion(free_chocolates)
     free_chocolates.each do |flavor, wrappers|
       available_wrappers[flavor] -= wrappers_needed
@@ -57,6 +58,8 @@ class IncomingOrder
     end
   end
 
+  private
+  
   def milk
     redemptions[:milk] += 1
     redemptions[:sugar_free] += 1
