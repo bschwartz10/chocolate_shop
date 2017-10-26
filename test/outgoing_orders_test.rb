@@ -4,10 +4,10 @@ class OutgoingOrdersTest < Minitest::Test
   attr_reader :outgoing_orders
 
   def setup
-    orders = [{"milk"=>7, "dark"=>0, "white"=>0, "sugar free"=>1},
-              {"milk"=>0, "dark"=>3, "white"=>0, "sugar free"=>0},
-              {"milk"=>0, "dark"=>3, "white"=>0, "sugar free"=>5},
-              {"milk"=>0, "dark"=>1, "white"=>5, "sugar free"=>3}]
+    orders = [{milk: 7, dark: 0, white: 0, sugar_free: 1},
+              {milk: 0, dark: 3, white: 0, sugar_free: 0},
+              {milk: 0, dark: 3, white: 0, sugar_free: 5},
+              {milk: 0, dark: 1, white: 5, sugar_free: 3}]
     @outgoing_orders = OutgoingOrders.new(orders)
   end
 
@@ -20,5 +20,4 @@ class OutgoingOrdersTest < Minitest::Test
     assert_instance_of OutgoingOrder, outgoing_orders.all.first
     assert_equal 4, outgoing_orders.all.count
   end
-
 end

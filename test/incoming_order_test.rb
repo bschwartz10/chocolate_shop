@@ -63,10 +63,16 @@ class IncomingOrderTest < Minitest::Test
     assert_equal :milk, mc_order.type
   end
 
-  def order_outputs_redemptions
+  def order_has_redemptions
     redemptions = {milk: 0, dark: 0, white: 0, sugar_free: 0}
 
     assert_equal redemptions, mc_order.redemptions
+  end
+
+  def order_has_available_wrappers
+    available_wrappers = {milk: 0, dark: 0, white: 0, sugar_free: 0}
+
+    assert_equal available_wrappers, mc_order.available_wrappers
   end
 
   def test_initial_chocolates_bought
@@ -159,5 +165,4 @@ class IncomingOrderTest < Minitest::Test
     assert_equal available_wrappers_and_output_after_adding_chocolates, dc_order.redemptions
     assert_equal available_wrappers_and_output_after_adding_chocolates, dc_order.available_wrappers
   end
-
 end

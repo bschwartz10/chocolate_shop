@@ -26,5 +26,4 @@ class OutgoingOrderTest < Minitest::Test
   def test_outgoing_order_has_sugar_free_quantity
     assert_equal 1, outgoing_order.sugar_free
   end
-
 end
