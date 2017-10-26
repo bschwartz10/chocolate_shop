@@ -7,16 +7,16 @@ class Order
     @wrappers_needed = order[:wrappers_needed].to_i
     @type = order[:type].tr(' ', '_').to_sym
     @redemptions = {
-      milk:  0,
-      dark:  0,
-      white:  0,
-      sugar_free:  0
+      milk: 0,
+      dark: 0,
+      white: 0,
+      sugar_free: 0
     }
     @available_wrappers = {
-      milk:  0,
-      dark:  0,
-      white:  0,
-      sugar_free:  0
+      milk: 0,
+      dark: 0,
+      white: 0,
+      sugar_free: 0
     }
   end
 
@@ -59,7 +59,7 @@ class Order
   end
 
   private
-  
+
   def milk
     redemptions[:milk] += 1
     redemptions[:sugar_free] += 1
