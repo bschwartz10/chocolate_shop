@@ -6,8 +6,8 @@ class Order
     @price              = raw_order[:price].to_i
     @wrappers_needed    = raw_order[:wrappers_needed].to_i
     @type               = raw_order[:type].tr(' ', '_').to_sym
-    @redemptions        = Hash[Promotion.schedule.keys.map {|f| [f, 0]}]
-    @available_wrappers = Hash[Promotion.schedule.keys.map {|f| [f, 0]}]
+    @redemptions        = Hash[Promotion.rules.keys.map {|f| [f, 0]}]
+    @available_wrappers = Hash[Promotion.rules.keys.map {|f| [f, 0]}]
   end
 
   def process!
@@ -43,7 +43,7 @@ private
   end
 
   def add_chocolates(flavor)
-    Promotion.schedule[flavor].each do |type, amount|
+    Promotion.rules[flavor].each do |type, amount|
       redemptions[type] += amount
       available_wrappers[type] += amount
     end
