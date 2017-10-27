@@ -16,7 +16,7 @@ class Order
     chocolate_promotion
   end
 
-
+private
 
   def initial_chocolates_bought
     redemptions[type] += cash / price

@@ -2,10 +2,9 @@ require './test/test_helper'
 
 class OrdersWriterTest < Minitest::Test
   def setup
-    orders = [{milk: 7, dark: 0, white: 0, sugar_free: 1},
-              {milk: 0, dark: 3, white: 0, sugar_free: 0},
-              {milk: 0, dark: 3, white: 0, sugar_free: 5},
-              {milk: 0, dark: 1, white: 5, sugar_free: 3}]
+    orders_csv = './input/orders.csv'
+    orders = OrdersReader.read_orders(orders_csv)
+    orders.each(&:process!)
     OrdersWriter.export(orders)
   end
 
