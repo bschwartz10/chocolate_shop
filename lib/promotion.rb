@@ -18,5 +18,4 @@ class Promotion
       },
     }
   end
-
 end

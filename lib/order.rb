@@ -10,7 +10,6 @@ class Order
     @available_wrappers = Hash[Promotion.schedule.keys.map {|f| [f, 0]}]
   end
 
-
   def process!
     bought_chocolates = initial_chocolates_bought
     initial_wrappers_obtained(bought_chocolates)
@@ -34,7 +33,6 @@ class Order
       end
       free_chocolates.empty? ? break : run_promotion(free_chocolates)
     end
-    redemptions
   end
 
   def run_promotion(free_chocolates)

@@ -63,16 +63,12 @@ class OrderTest < Minitest::Test
     assert_equal :milk, mc_order.type
   end
 
-  def order_has_redemptions
-    redemptions = {milk: 0, dark: 0, white: 0, sugar_free: 0}
-
-    assert_equal redemptions, mc_order.redemptions
+  def test_order_has_redemptions
+    assert_equal({milk: 0, dark: 0, white: 0, sugar_free: 0}, mc_order.redemptions)
   end
 
-  def order_has_available_wrappers
-    available_wrappers = {milk: 0, dark: 0, white: 0, sugar_free: 0}
-
-    assert_equal available_wrappers, mc_order.available_wrappers
+  def test_order_has_available_wrappers
+    assert_equal({milk: 0, dark: 0, white: 0, sugar_free: 0}, mc_order.available_wrappers)
   end
 
   def test_initial_chocolates_bought
@@ -81,47 +77,43 @@ class OrderTest < Minitest::Test
 
   def test_initial_wrappers_obtained
     bought_chocolates = mc_order.initial_chocolates_bought
+
     assert_equal 7, mc_order.initial_wrappers_obtained(bought_chocolates)
   end
 
   def test_milk_chocolate_promotion
     output_after_promotion = {milk: 8, dark: 0, white: 0, sugar_free: 1}
-    bought_chocolates = mc_order.initial_chocolates_bought
-    mc_order.initial_wrappers_obtained(bought_chocolates)
+    mc_order.process!
 
-    assert_equal output_after_promotion, mc_order.chocolate_promotion
+    assert_equal output_after_promotion, mc_order.redemptions
   end
 
   def test_different_milk_chocolate_promotion
     output_after_promotion = {milk: 7, dark: 0, white: 0, sugar_free: 1}
-    bought_chocolates = mc_two_order.initial_chocolates_bought
-    mc_two_order.initial_wrappers_obtained(bought_chocolates)
+    mc_two_order.process!
 
-    assert_equal output_after_promotion, mc_two_order.chocolate_promotion
+    assert_equal output_after_promotion, mc_two_order.redemptions
   end
 
   def test_white_chocolate_promotion
     output_after_promotion = {milk: 0, dark: 1, white: 5, sugar_free: 3}
-    bought_chocolates = wc_order.initial_chocolates_bought
-    wc_order.initial_wrappers_obtained(bought_chocolates)
+    wc_order.process!
 
-    assert_equal output_after_promotion, wc_order.chocolate_promotion
+    assert_equal output_after_promotion, wc_order.redemptions
   end
 
   def test_dark_chocolate_promotion
     output_after_promotion = {milk: 0, dark: 3, white: 0, sugar_free: 0}
-    bought_chocolates = dc_order.initial_chocolates_bought
-    dc_order.initial_wrappers_obtained(bought_chocolates)
+    dc_order.process!
 
-    assert_equal output_after_promotion, dc_order.chocolate_promotion
+    assert_equal output_after_promotion, dc_order.redemptions
   end
 
   def test_sugar_free_chocolate_promotion
     output_after_promotion = {milk: 0, dark: 3, white: 0, sugar_free: 5}
-    bought_chocolates = sf_order.initial_chocolates_bought
-    sf_order.initial_wrappers_obtained(bought_chocolates)
+    sf_order.process!
 
-    assert_equal output_after_promotion, sf_order.chocolate_promotion
+    assert_equal output_after_promotion, sf_order.redemptions
   end
 
   def test_run_promotion_keeps_track_of_available_wrappers
@@ -134,39 +126,59 @@ class OrderTest < Minitest::Test
     assert_equal output_afer_trading_in_wrappers, mc_order.available_wrappers
   end
 
-  def test_add_milk_chocolates_increases_appropriate_output_and_available_wrapper_keys
-
-    available_wrappers_and_output_after_adding_chocolates = {milk: 1, dark: 0, white: 0, sugar_free: 1}
+  def test_add_chocolates_increases_appropriate_output_for_milk_chocolate
+    output_after_adding_chocolates = {milk: 1, dark: 0, white: 0, sugar_free: 1}
     mc_order.add_chocolates(:milk)
 
-    assert_equal available_wrappers_and_output_after_adding_chocolates, mc_order.redemptions
-    assert_equal available_wrappers_and_output_after_adding_chocolates, mc_order.available_wrappers
+    assert_equal output_after_adding_chocolates, mc_order.redemptions
   end
 
-  def test_add_white_chocolates_increases_appropriate_output_and_available_wrapper_values
+  def test_add_chocolates_increases_available_wrappers_for_milk_chocolate
+    available_wrappers_after_adding_chocolates = {milk: 1, dark: 0, white: 0, sugar_free: 1}
+    mc_order.add_chocolates(:milk)
 
-    available_wrappers_and_output_after_adding_chocolates = {milk: 0, dark: 0, white: 1, sugar_free: 1}
+    assert_equal available_wrappers_after_adding_chocolates, mc_order.available_wrappers
+  end
+
+  def test_add_chocolates_increases_appropriate_output_for_white_chocolate
+    output_after_adding_chocolates = {milk: 0, dark: 0, white: 1, sugar_free: 1}
     wc_order.add_chocolates(:white)
 
-    assert_equal available_wrappers_and_output_after_adding_chocolates, wc_order.redemptions
-    assert_equal available_wrappers_and_output_after_adding_chocolates, wc_order.available_wrappers
+    assert_equal output_after_adding_chocolates, wc_order.redemptions
   end
 
-  def test_add_sugar_free_chocolates_increases_appropriate_output_and_available_wrapper_values
+  def test_add_chocolates_increases_available_wrappers_for_white_chocolate
+    available_wrappers_after_adding_chocolates = {milk: 0, dark: 0, white: 1, sugar_free: 1}
+    wc_order.add_chocolates(:white)
 
-    available_wrappers_and_output_after_adding_chocolates = {milk: 0, dark: 1, white: 0, sugar_free: 1}
+    assert_equal available_wrappers_after_adding_chocolates, wc_order.available_wrappers
+  end
+
+  def test_add_chocolates_increases_appropriate_output_for_sugar_free_chocolate
+    output_after_adding_chocolates = {milk: 0, dark: 1, white: 0, sugar_free: 1}
     sf_order.add_chocolates(:sugar_free)
 
-    assert_equal available_wrappers_and_output_after_adding_chocolates, sf_order.redemptions
-    assert_equal available_wrappers_and_output_after_adding_chocolates, sf_order.available_wrappers
+    assert_equal output_after_adding_chocolates, sf_order.redemptions
   end
 
-  def test_add_dark_chocolates_increases_appropriate_output_and_available_wrapper_values
+  def test_add_chocolates_increases_available_wrappers_for_sugar_free_chocolate
+    available_wrappers_after_adding_chocolates = {milk: 0, dark: 1, white: 0, sugar_free: 1}
+    sf_order.add_chocolates(:sugar_free)
 
-    available_wrappers_and_output_after_adding_chocolates = {milk: 0, dark: 1, white: 0, sugar_free: 0}
+    assert_equal available_wrappers_after_adding_chocolates, sf_order.available_wrappers
+  end
+
+  def test_add_chocolates_increases_appropriate_output_for_dark_chocolate
+    output_after_adding_chocolates = {milk: 0, dark: 1, white: 0, sugar_free: 0}
     dc_order.add_chocolates(:dark)
 
-    assert_equal available_wrappers_and_output_after_adding_chocolates, dc_order.redemptions
-    assert_equal available_wrappers_and_output_after_adding_chocolates, dc_order.available_wrappers
+    assert_equal output_after_adding_chocolates, dc_order.redemptions
+  end
+
+  def test_add_chocolates_increases_available_wrappers_for_dark_chocolate
+    available_wrappers_after_adding_chocolates = {milk: 0, dark: 1, white: 0, sugar_free: 0}
+    dc_order.add_chocolates(:dark)
+
+    assert_equal available_wrappers_after_adding_chocolates, dc_order.available_wrappers
   end
 end
