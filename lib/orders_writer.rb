@@ -1,8 +1,8 @@
 class OrdersWriter
-  def self.write_order(orders)
+  def self.export(orders)
     CSV.open('output/redemptions.csv', 'wb') do |csv|
       orders.each do |order|
-        csv << ["milk #{order[:milk]}", "dark #{order[:dark]}", "white #{order[:white]}", "sugar free #{order[:sugar_free]}"]
+        csv << order.map{|flavor, val| "#{flavor.to_s.gsub("_", " ")} #{val}"}
       end
     end
   end
