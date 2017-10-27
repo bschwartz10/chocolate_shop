@@ -48,5 +48,4 @@ private
       available_wrappers[type] += amount
     end
   end
-
 end
