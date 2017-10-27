@@ -116,16 +116,6 @@ class OrderTest < Minitest::Test
     assert_equal output_after_promotion, sf_order.redemptions
   end
 
-  def test_run_promotion_keeps_track_of_available_wrappers
-    output_afer_trading_in_wrappers = {:milk=>2, :dark=>0, :white=>0, :sugar_free=>1}
-    bought_chocolates = mc_order.send(:initial_chocolates_bought)
-    mc_order.send(:initial_wrappers_obtained, bought_chocolates)
-    free_chocolates = {milk: 6}
-    mc_order.send(:run_promotion,free_chocolates)
-
-    assert_equal output_afer_trading_in_wrappers, mc_order.available_wrappers
-  end
-
   def test_add_chocolates_increases_appropriate_output_for_milk_chocolate
     output_after_adding_chocolates = {milk: 1, dark: 0, white: 0, sugar_free: 1}
     mc_order.send(:add_chocolates, :milk)
