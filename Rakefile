@@ -3,6 +3,7 @@ task :all do
   ruby 'test/orders_reader_test.rb'
   ruby 'test/order_test.rb'
   ruby 'test/orders_writer_test.rb'
+  ruby 'test/promotion_test.rb'
   ruby 'lib/runner.rb'
 end
 
@@ -11,6 +12,7 @@ task :tests do
   ruby 'test/orders_reader_test.rb'
   ruby 'test/order_test.rb'
   ruby 'test/orders_writer_test.rb'
+  ruby 'test/promotion_test.rb'
 end
 
 task :redemptions do
