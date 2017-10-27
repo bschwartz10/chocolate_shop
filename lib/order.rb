@@ -1,34 +1,33 @@
 class Order
   attr_reader :cash, :price, :wrappers_needed, :type, :redemptions, :available_wrappers
 
-  def initialize(order)
-    @cash = order[:cash].to_i
-    @price = order[:price].to_i
-    @wrappers_needed = order[:wrappers_needed].to_i
-    @type = order[:type].tr(' ', '_').to_sym
-    @redemptions = {
-      milk: 0,
-      dark: 0,
-      white: 0,
-      sugar_free: 0
-    }
-    @available_wrappers = {
-      milk: 0,
-      dark: 0,
-      white: 0,
-      sugar_free: 0
-    }
+  def initialize(raw_order)
+    @cash               = raw_order[:cash].to_i
+    @price              = raw_order[:price].to_i
+    @wrappers_needed    = raw_order[:wrappers_needed].to_i
+    @type               = raw_order[:type].tr(' ', '_').to_sym
+    @redemptions        = Hash[Promotion.schedule.keys.map {|f| [f, 0]}]
+    @available_wrappers = Hash[Promotion.schedule.keys.map {|f| [f, 0]}]
   end
 
-  def initial_chocolates_bought(type)
+
+  def process!
+    bought_chocolates = initial_chocolates_bought
+    initial_wrappers_obtained(bought_chocolates)
+    chocolate_promotion
+  end
+
+
+
+  def initial_chocolates_bought
     redemptions[type] += cash / price
   end
 
-  def initial_wrappers_obtained(type, initial_wrappers)
+  def initial_wrappers_obtained(initial_wrappers)
     available_wrappers[type] += initial_wrappers
   end
 
-  def chocolate_promotion(wrappers_needed)
+  def chocolate_promotion
     loop do
       free_chocolates = available_wrappers.select do |flavor, wrappers|
         wrappers >= wrappers_needed
@@ -46,7 +45,7 @@ class Order
   end
 
   def add_chocolates(flavor)
-    Promotion.new.promotions[flavor].each do |type, amount|
+    Promotion.schedule[flavor].each do |type, amount|
       redemptions[type] += amount
       available_wrappers[type] += amount
     end
