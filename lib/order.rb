@@ -38,7 +38,6 @@ class Order
     redemptions
   end
 
-
   def run_promotion(free_chocolates)
     free_chocolates.each do |flavor, wrappers|
       available_wrappers[flavor] -= wrappers_needed
@@ -47,42 +46,10 @@ class Order
   end
 
   def add_chocolates(flavor)
-    if flavor == :milk
-      milk
-    elsif flavor == :dark
-      dark
-    elsif flavor == :white
-      white
-    elsif flavor == :sugar_free
-      sugar_free
+    Promotion.new.promotions[flavor].each do |type, amount|
+      redemptions[type] += amount
+      available_wrappers[type] += amount
     end
   end
 
-  private
-
-  def milk
-    redemptions[:milk] += 1
-    redemptions[:sugar_free] += 1
-    available_wrappers[:milk] += 1
-    available_wrappers[:sugar_free] += 1
-  end
-
-  def white
-    redemptions[:white] += 1
-    redemptions[:sugar_free] += 1
-    available_wrappers[:white] += 1
-    available_wrappers[:sugar_free] += 1
-  end
-
-  def sugar_free
-    redemptions[:sugar_free] += 1
-    redemptions[:dark] += 1
-    available_wrappers[:sugar_free] += 1
-    available_wrappers[:dark] += 1
-  end
-
-  def dark
-    redemptions[:dark] += 1
-    available_wrappers[:dark] += 1
-  end
 end
