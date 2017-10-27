@@ -1,5 +1,5 @@
 class Promotion
-  def self.schedule
+  def self.rules
     {
       milk: {
         milk: 1,
