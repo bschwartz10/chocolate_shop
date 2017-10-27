@@ -6,7 +6,7 @@ class OrdersWriterTest < Minitest::Test
               {milk: 0, dark: 3, white: 0, sugar_free: 0},
               {milk: 0, dark: 3, white: 0, sugar_free: 5},
               {milk: 0, dark: 1, white: 5, sugar_free: 3}]
-    OrdersWriter.write_order(orders)
+    OrdersWriter.export(orders)
   end
 
   def test_orders_writer_exists
