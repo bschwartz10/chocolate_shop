@@ -1,7 +1,7 @@
 require './test/test_helper'
 
 class OrderTest < Minitest::Test
-  attr_reader :mc_order, :mc_two_order, :mc_three_order, :wc_order, :dc_order, :sf_order
+  attr_reader :mc_order, :mc_two_order, :wc_order, :dc_order, :sf_order
 
   def setup
     @mc_order = Order.new({
