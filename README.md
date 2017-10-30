@@ -38,6 +38,3 @@ A main design goal was to isolate the flavors and promotion rules to only one lo
 A main design challenge for me was balancing single responsibility classes with simplicity. In a previous iteration I created an IncomingOrders class that iterated through each row of the csv file and created an order object. I can see this class being useful if the data in the csv file was inconsistent and needed to be standardized. For simplicity sake, I removed the class and gave that responsibility to the OrdersReader class through the csv.foreach method.
 
 Along those same lines, I previously had an OutgoingOrder class. This class closely resembled a data class so I was able to remove it and give the responsibility to built in ruby methods. For example, in a previous iteration while writing my csv file I was calling `#{outgoing_order.milk}`. I removed the OutgoingOrder class and am now iterating over an order hash and printing `#{flavor}` and `#{quantity}` to produce the same output.
-
-### Contributors:
-* [Brett Schwartz](https://github.com/bschwartz10)
