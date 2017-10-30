@@ -3,10 +3,10 @@ require './test/test_helper'
 class OrdersWriterTest < Minitest::Test
   def setup
     orders = [
-      Order.new({cash:"12", price:"2", wrappers_needed:"5", type:"milk"}),
-      Order.new({cash:"12", price:"4", wrappers_needed:"4", type:"dark"}),
-      Order.new({cash:"6", price:"2", wrappers_needed:"2", type:"sugar free"}),
-      Order.new({cash:"6", price:"2", wrappers_needed:"2", type:"white"}),
+      Order.new({cash:'12', price:'2', wrappers_needed:'5', type:'milk'}),
+      Order.new({cash:'12', price:'4', wrappers_needed:'4', type:'dark'}),
+      Order.new({cash:'6', price:'2', wrappers_needed:'2', type:'sugar free'}),
+      Order.new({cash:'6', price:'2', wrappers_needed:'2', type:'white'}),
     ]
     orders.each(&:process!)
     OrdersWriter.export(orders)
